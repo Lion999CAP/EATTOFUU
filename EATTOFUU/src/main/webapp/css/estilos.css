@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'Noto Sans JP';
+  src: url('path/to/NotoSansJP-Regular.otf') format('opentype');
+}
+
+h1,
+div h2 {
+    text-align: center;
+    }
+
+header{
+		font-family: 'Noto Sans JP', sans-serif;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        min-height: 70px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        }
+
+form {
+		max-width: 300px;
+		margin: 0 auto;
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+label{
+		display: block;
+		margin-bottom: 10px;
+		}
+
+.imagen1 {
+        height: 70px;
+        width: 120px;
+        float: right;
+        }
+
+.imagenV{
+        width: 500px;
+        height: 300px;
+        position: center;
+        display: block;
+ 		margin: 0 auto;
+        }
+        
+.video { 
+		text-align: center;
+		}
+
+body {
+        background-color: #fff;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        margin: 0;
+        }
+
+#registrar {
+		text-decoration: none;
+        color: #000000;
+        font-weight: 600;
+        padding-right: 10px;
+		}
+
+a{
+		text-decoration: none;
+        color: #fff;
+        font-weight: 600;
+        padding-right: 10px;
+        }
+
+nav h2{
+        color: #fff;
+        font-weight: 600;
+        padding-left: 0px;
+        align-items: left;
+        text-align: center;
+}
+
+.contactos{
+	width: 70px;
+	height: 70px;
+}
+
+a:hover{
+        color:rgb(0, 128, 192);
+        }
+
+header, footer {
+        background-color: #000000;
+        }
+        
+section{
+		text-align: justify;
+		margin: 0 auto;
+ 		width: 60%;
+		}
+		
+section img,
+div iframe{
+		display: block;
+ 		margin: 0 auto;
+		}
+
+@media (max-width:800px){
+        header{
+                flex-direction: column;
+                }
+ 		nav{
+                padding: 10px 0px;
+                }
+        .video video{
+        		height: 300px;
+        		width: 400px;
+        		}
+        }
+
+
+   
