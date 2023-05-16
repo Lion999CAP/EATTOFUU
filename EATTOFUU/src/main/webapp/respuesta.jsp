@@ -26,12 +26,11 @@
     funciones object= new funciones();
     out.print(object.provincia_cedula(request.getParameter("txtCedula")));
     %>
-    
   	</p> 
   	
 	<p> Edad:  
 	<%
-	out.print(object.calcular_edad(request.getParameter("fecha")));
+	 out.print(object.calcular_edad(request.getParameter("fecha")));
 	%>
 	</p>
 </html>

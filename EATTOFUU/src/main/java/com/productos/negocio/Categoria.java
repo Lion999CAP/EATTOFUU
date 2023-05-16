@@ -8,6 +8,23 @@ public class Categoria {
 	
 	private int id;
 	private String nombre;
+	private static int id2;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
 	public String mostrarCategoria()
 	{
@@ -30,9 +47,6 @@ public class Categoria {
 	}
 	return combo;
 	}
-	
-	
-	
 	
 	public Categoria() {
 		this.id = 0;

@@ -1,7 +1,8 @@
 package com.productos.seguridad;
-
+import java.sql.*;
 import com.productos.datos.*;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Usuario {
 
@@ -9,10 +10,14 @@ public class Usuario {
 	private String direccion;
 	private String login;
 	private String clave;
-	private int perfil; 	
+	private int perfil;
 	
-	public Usuario() {
-		// TODO Auto-generated constructor stub
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getDireccion() {
@@ -47,44 +52,44 @@ public class Usuario {
 		this.perfil = perfil;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public boolean verificarUsuario(String nlogin, String nclave)
+	{
+	boolean respuesta=false;
+	String sentencia= "Select * from tb_usuario where login_us='"+nlogin+
+	"' and clave_us='"+nclave+"';";
+	//System.out.print(sentencia);
+	try
+	{
+		ResultSet rs;
+		Conexion clsCon=new Conexion();
+		rs=clsCon.Consulta(sentencia);
+		if(rs.next())
+		{
+		respuesta=true;
+		this.setLogin(nlogin);
+		this.setClave(nclave);
+		this.setPerfil(rs.getInt(2));
+		this.setNombre(rs.getString(3));
+		}
+		else
+		{
+		respuesta=false;
+		rs.close();
+		}
+		}
+		catch(Exception ex)
+		{
+		System.out.println( ex.getMessage());
+		}
+		return respuesta;
 	}
 	
-	public boolean verificarUsuario(String nlogin, String nclave) {
-		boolean respuesta=false;
-		String sentencia= "Select * from tb_usuario where login_us='"+nlogin+
-		"' and clave_us='"+nclave+"';";
-		//System.out.print(sentencia);
-		try
-		{
-			ResultSet rs;
-			Conexion clsCon=new Conexion();
-			rs=clsCon.Consulta(sentencia);
-			if(rs.next())
-			{
-			respuesta=true;
-			this.setLogin(nlogin);
-			this.setClave(nclave);
-			this.setPerfil(rs.getInt(2));
-			this.setNombre(rs.getString(3));
-			}
-			else
-			{
-			respuesta=false;
-			rs.close();
-			}
-			}
-			catch(Exception ex)
-			{
-			System.out.println( ex.getMessage());
-			}
-			return respuesta;
-		
+	public Usuario() {
+		this.clave="";
+		this.direccion="";
+		this.login="";
+		this.nombre="";
+		this.perfil=0;
 	}
 
 }

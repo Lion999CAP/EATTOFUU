@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="css/estilos.css" rel="stylesheet" type="text/css">
 <title>Reporte categoria</title>
 </head>
 <body>
 	<%
-	Producto object= new Producto(); 
-	out.print(object.consultarTodo());
-	%>
+	  Producto obj=new Producto();
+	  out.print(obj.buscarProductoCategoria(Integer.parseInt(request.getParameter("cmbCategoria"))));
+	 %>
 </body>
 </html>

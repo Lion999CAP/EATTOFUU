@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="css/estilos.css" rel="stylesheet" type="text/css">
 <title>EATTOFUU</title>
 </head>
 <body>
@@ -20,22 +19,27 @@
                 <a class="enlaces" href="productos.jsp"> Productos   </a>
                 <a class="enlaces" href="login.jsp"> Login   </a>
             </nav>
-        </header>
-
-  <main>
-  <form action="reporteCategoria.jsp" method="post" name="formCategoria">
- 
- <label for="cat"></label>
-  <%
-  Categoria obj= new Categoria();
-  out.print(obj.mostrarCategoria());
-  %>
-    
-    <button class="boton-cat" type="submit">Enviar</button>
-  </form>
-  </main>
-
-		<footer>
+   </header>
+   
+   <main>
+   
+     <%
+     int cod = Integer.parseInt(request.getParameter("editarcodigo"));
+     String des = request.getParameter("editardescripcion");
+     float pre = Float.parseFloat(request.getParameter("editarprecio"));
+     int cant = Integer.parseInt(request.getParameter("editarcantidad"));
+     Producto mp = new Producto();
+     boolean act = mp.ModificarProducto(mp);
+     if(act == true){
+    	 response.sendRedirect("categoria.jsp");
+     }else{
+    	 out.print("Algo salio mal");
+     }
+     %>
+   
+   </main>
+   
+  <footer>
                 <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 
         </footer>
 </body>

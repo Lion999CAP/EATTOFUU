@@ -118,7 +118,7 @@ function provincia_cedula(input) {
 /*
 * 2. Validar credenciales de acceso (level easy)
 * 2.1 escuchar al boton
-*/
+*
 
   document.getElementById("form_login").addEventListener("submit", function(event) {
   event.preventDefault(); // Evitar el envío del formulario
@@ -130,9 +130,10 @@ function provincia_cedula(input) {
   if (usuario === "Leandro" && contraseña === "12345") {
     // Si las credenciales son válidas, redirigir a la página de inicio
     alert("Inicio de sesión exitoso");
-    window.location.href = "creador.html"; 
+    window.location.href = "registrar_producto.jsp"; 
   } else {
     // Si las credenciales no son válidas, mostrar un mensaje de error
     alert("Usuario o contraseña incorrectos"); // Mostrar mensaje de error (puedes personalizarlo según tus necesidades)
   }
 });
+*/

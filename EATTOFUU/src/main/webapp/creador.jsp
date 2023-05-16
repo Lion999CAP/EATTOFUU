@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.productos.negocio.*"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <link href="css/estilos.css" rel="stylesheet" type="text/css">
-<title>EATTOFUU</title>
+<meta charset="UTF-8">
+<title>Contactos</title>
 </head>
 <body>
   <header id="header">
@@ -16,27 +16,19 @@
               <a class="enlaces" href="index.jsp"> <h2 class="titulo"> EATTOFUU </h2> </a> 
             </nav>
             <nav class="navengacion">
-                <a class="enlaces" href="index.jsp"> Home   </a>
                 <a class="enlaces" href="productos.jsp"> Productos   </a>
+                <a class="enlaces" href="categoria.jsp"> Busqueda   </a>
                 <a class="enlaces" href="login.jsp"> Login   </a>
             </nav>
         </header>
-
-  <main>
-  <form action="reporteCategoria.jsp" method="post" name="formCategoria">
- 
- <label for="cat"></label>
-  <%
-  Categoria obj= new Categoria();
-  out.print(obj.mostrarCategoria());
-  %>
-    
-    <button class="boton-cat" type="submit">Enviar</button>
-  </form>
-  </main>
-
-		<footer>
-                <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 
-        </footer>
+	<h1>Información del Desarrollador</h1>
+	  <img id="admin_img" src="img/FOTO.jpg" alt="Foto del Desarrollador" />
+	  <p>Nombre: Leandro Lara</p>
+	  <p>Edad: 19 años</p>
+	  <p>Experiencia Laboral: 1 año en programación web</p>
+	  <p>Habilidades Técnicas: Java, HTML, CSS, C, C++, Phyton</p>
+	  <p>Proyectos Destacados: Desarrollo de un sitio web de comercio electrónico</p>
+	  <p>Intereses: Viajar, hacer deporte, aprender cosas nuevas</p>
+	  <a href="https://github.com/Lion999CAP/">GitHub</a>
 </body>
 </html>

@@ -10,6 +10,10 @@ div h2 {
     text-align: center;
     }
 
+footer > p{
+	color: #fff;
+}
+
 header{
 		font-family: 'Noto Sans JP', sans-serif;
         display: grid;
@@ -78,11 +82,6 @@ nav h2{
         padding-left: 0px;
         align-items: left;
         text-align: center;
-}
-
-.contactos{
-	width: 70px;
-	height: 70px;
 }
 
 a:hover{
