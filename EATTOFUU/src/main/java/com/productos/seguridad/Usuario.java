@@ -10,8 +10,17 @@ public class Usuario {
 	private String direccion;
 	private String login;
 	private String clave;
+	private String newclave;
 	private int perfil;
 	
+	public String getNewclave() {
+		return newclave;
+	}
+
+	public void setNewclave(String newclave) {
+		this.newclave = newclave;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -84,8 +93,32 @@ public class Usuario {
 		return respuesta;
 	}
 	
+	public boolean cambiarContrasena(String nlogin, String nclave, String nuevaContrasena) {
+	    boolean respuesta = false;
+	    String sentencia = "SELECT * FROM tb_usuario WHERE login_us='" + nlogin +
+	            "' AND clave_us='" + nclave + "';";
+	    try {
+	        ResultSet rs;
+	        Conexion clsCon = new Conexion();
+	        rs = clsCon.Consulta(sentencia);
+	        if (rs.next()) {
+	            // El usuario y la contraseña son válidos, procede a cambiar la contraseña
+	            String actualizacion = "UPDATE tb_usuario SET clave_us = '" + nuevaContrasena + "' WHERE login_us = '" + nlogin + "';";
+	            clsCon.Ejecutar(actualizacion);
+	            respuesta = true;
+	        } else {
+	            respuesta = false;
+	            rs.close();
+	        }
+	    } catch (Exception ex) {
+	        System.out.println(ex.getMessage());
+	    }
+	    return respuesta;
+	}
+
 	public Usuario() {
 		this.clave="";
+		this.newclave="";
 		this.direccion="";
 		this.login="";
 		this.nombre="";

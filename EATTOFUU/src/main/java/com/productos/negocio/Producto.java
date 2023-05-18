@@ -42,10 +42,11 @@ public class Producto {
 
 	public String buscarProductoCategoria(int cat)
 	{
-	String sentencia="SELECT nombre_pr, precio_pr FROM tb_producto WHERE id_cat="+(cat+1);
+	String sentencia="SELECT descripcion_pr, precio_pr FROM tb_producto WHERE id_cat="+(cat);
 	Conexion con=new Conexion();
 	ResultSet rs;
 	String resultado="<table border=3>";
+	resultado+="<tr><th>Descripcion</th><th>Precio</th></tr>";
 	try
 	{
 	rs=con.Consulta(sentencia);
@@ -70,15 +71,15 @@ public class Producto {
 	Conexion con=new Conexion();
 	PreparedStatement pr=null;
 	String sql="INSERT INTO tb_producto (id_pr,id_cat,"
-	+ "nombre_pr,cantidad_pr,precio_pr,foto_pr) "
+	+ "descripcion_pr,cantidad_pr,precio_pr,foto_pr) "
 	+ "VALUES(?,?,?,?,?,?)";
 	try{
 	pr=con.getConexion().prepareStatement(sql);
 	pr.setInt(1,id);
 	pr.setInt(2,cat);
 	pr.setString(3, nombre);
-	pr.setInt(4, cantidad);
-	pr.setDouble(5, precio);
+	pr.setInt(5, cantidad);
+	pr.setDouble(4, precio);
 	File fichero=new File(directorio);
 	FileInputStream streamEntrada=new FileInputStream(fichero);
 	pr.setBinaryStream(6, streamEntrada,(int)fichero.length());
@@ -110,25 +111,23 @@ public class Producto {
 		return result;
 	}
 	
-	public String consultarProducto(String cod)
+	public String consultarProducto(int cod)
 	{
-	String tabla= "<table border=1>";
-	String sql="SELECT * FROM tb_producto WHERE id_cat="+cod+"";
+	String tabla= "<table border=2><th>ID</th><th>Producto</th><th>Cantidad</th><th>Precio</th>";
+	String sql="SELECT * FROM tb_producto WHERE id_cat= " + cod;
 	Conexion con=new Conexion();
-	tabla="<tr><th>ID</th><th>Producto</th><th>Cantidad</th><th>Precio</th></tr>";
 	ResultSet rs=null;
 	try {
-		rs=con.Consulta(sql);
-	while(rs.next())
-	{
-	tabla+="<tr><td>"+rs.getInt(1)+"</td>"
-	+ "<td>"+rs.getString(3)+"</td>"
-	+ "<td>"+rs.getInt(5)+"</td>"
-	+ "<td>"+rs.getDouble(4)+'$'+"</td>"
-	+ "<td> <a href= BuscarProducto.jsp?cod=" + rs.getInt(1) + "><pre style=\"text-align: center\">Modificar</pre></a></td>"
-	+ "<td> <a href= EliminarProducto.jsp?cod=" + rs.getInt(1) + " \"><pre style=\"text-align: center\">Eliminar</pre></a></td>"
-	+ "</td></tr>";
-	}
+	rs=con.Consulta(sql);
+		while(rs.next()){
+			tabla+="<tr><td>"+rs.getInt(1)+"</td>"
+			+ "<td>"+rs.getString(3)+"</td>"
+			+ "<td>"+rs.getInt(4)+"</td>"
+			+ "<td>"+rs.getDouble(5)+'$'+"</td>"
+			+ "<td> <a href= EditarProductos.jsp?cod=" + rs.getInt(1) + "><pre style=\"text-align: center\">Modificar</pre></a></td>"
+			+ "<td> <a href= EliminarProducto.jsp?cod=" + rs.getInt(1) + "><pre style=\"text-align: center\">Eliminar</pre></a></td>"
+			+ "</td></tr>";
+		}
 	} catch (SQLException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
@@ -141,9 +140,7 @@ public class Producto {
 	public void ConsulEditarProductos (int cod) {
 		Conexion obj=new Conexion();
 		ResultSet rs = null;
-	
-		String sql = "SELECT 1d_pr, 1d_car, descripcion_pr, precio_pr, cantidad_pr FROM tb_producto where id_pr = '" + cod +"'";
-	
+		String sql = "SELECT id_pr, id_cat, descripcion_pr, precio_pr, cantidad_pr FROM tb_producto where id_pr =" + cod;
 		try {
 			rs = obj.Consulta(sql);
 			while(rs.next()){
@@ -158,34 +155,38 @@ public class Producto {
 	}
 	
 	public boolean ModificarProducto(Producto mp) {
-		
 		boolean agregado= false;
 		Conexion obj=new Conexion();
-		String sql = "UPDATE tb_producto SET descripcion_pr='"+mp.getNombre()
-		+"',precio_pr='"+mp.getPrecio()+"', cantidad_pr='"+mp.getCantidad()+"' WHERE id_pr='"+mp.getId()+"'";
+		String sql = "UPDATE tb_producto SET descripcion_pr='"+mp.getNombre()+"',precio_pr="+mp.getPrecio()+", cantidad_pr="+mp.getCantidad()+" WHERE id_pr= " + mp.getId();
 		try {
 			obj.Ejecutar(sql);
 			agregado=true;
 		}catch (Exception e) {
 			agregado=false;
+			e.printStackTrace();
+			System.out.print(e.getMessage());
 		}
-			
 		return agregado;
 	}
 		
-public boolean EliminarProducto(int cod) {
-		
-		boolean f= false;
-		Conexion obj=new Conexion();
-		String sql = "DELETE from tb_producto WHERE id_pr='"+cod+"'";
-		try {
-			obj.Ejecutar(sql);
-			f=true;
-		}catch (Exception e) {
-			f=false;
-		}
-			
-		return f;
+	public boolean EliminarProducto(int cod) {
+	    boolean f = false;
+	    Conexion obj = new Conexion();
+	    String sql = "DELETE FROM tb_producto WHERE id_pr = ?";
+	    try {
+	        PreparedStatement stmt = obj.getConexion().prepareStatement(sql);
+	        stmt.setInt(1, cod);
+	        int rowsAffected = stmt.executeUpdate();
+	        if (rowsAffected > 0) {
+	            f = true;
+	        }
+	        stmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        f = false;
+	    	System.out.print(e.getMessage());
+	    }
+	    return f;
 	}
 		
 	

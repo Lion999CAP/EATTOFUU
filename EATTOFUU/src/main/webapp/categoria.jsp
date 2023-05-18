@@ -23,6 +23,7 @@
         </header>
 
   <main>
+  <h2> Todas las categorias: </h2>
   <form action="reporteCategoria.jsp" method="post" name="formCategoria">
  
  <label for="cat"></label>

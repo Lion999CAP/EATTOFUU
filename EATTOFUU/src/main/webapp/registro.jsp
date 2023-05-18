@@ -58,7 +58,7 @@
 				  <td> <input type="reset" /></td>
 				</tr>
 			</table>
-			<a href="index.html"> Regresar </a>
+			<a href="index.jsp"> Regresar </a>
 	</form>
 </body>
 </html>

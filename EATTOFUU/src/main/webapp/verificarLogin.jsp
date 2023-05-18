@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EATTOFUU</title>
 </head>
 <body>
 
@@ -20,7 +20,7 @@ if (respuesta){
 	response.sendRedirect("menu.jsp"); //Se redirecciona a una página específica
 }else{
 	%>
-	<jsp:forward page="login.html">
+	<jsp:forward page="login.jsp">
 	<jsp:param name="error" value="Datos incorrectos.<br>Vuelva a intentarlo."/>
 	</jsp:forward>
 	<%

@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.productos.negocio.*"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link href="css/estilos.css" rel="stylesheet" type="text/css">
-<title>Reporte categoria</title>
+<title>EATTOFUU</title>
 </head>
 <body>
   <header id="header">
@@ -21,15 +20,25 @@
                 <a class="enlaces" href="productos.jsp"> Productos   </a>
                 <a class="enlaces" href="login.jsp"> Login   </a>
             </nav>
-   </header>
-   <main>
-	  <%
-	  Producto obj2=new Producto();
-	  out.print(obj2.buscarProductoCategoria(Integer.parseInt(request.getParameter("cmbCategoria"))));
- 	  %>
+        </header>
+
+  <main>
+  <h1>Elija la categoria a modificar:</h1>
+  <h2> Todas las categorias: </h2>
+  <form action="buscarProducto.jsp" method="post" name="formCategoria">
+ 
+ <label for="cat"></label>
+  <%
+  Categoria obj= new Categoria();
+  out.print(obj.mostrarCategoria());
+  %>
+    
+    <button class="boton-cat" type="submit">Enviar</button>
+  </form>
   </main>
-  <footer>
-    <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 
-  </footer>
+
+		<footer>
+                <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 
+        </footer>
 </body>
 </html>

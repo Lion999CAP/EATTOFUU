@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EATTOFUU</title>
 </head>
 <body>
   <header id="header">
@@ -22,20 +22,20 @@
    </header>
    
    <main>
+   <h1>Texto</h1>
    
-   <%
-   int cod = Integer.parseInt(request.getParameter("editarcodigo"));
-   Producto mp = new Producto();
-   boolean act = mp.ModificarProducto(mp);
-   if(act == true){
-  	 response.sendRedirect("categoria.jsp");
-   }else{
-  	 out.print("Algo salio mal");
+     <%
+   int cod = Integer.parseInt(request.getParameter("id_pr"));  
+   Producto mp= new Producto();
+   boolean eliminacionExitosa = mp.EliminarProducto(cod);
+   if (eliminacionExitosa) {
+	   response.sendRedirect("productos.jsp");
+   } else {
+       out.println("No se pudo eliminar el producto");
    }
    %>
    
    </main>
-   
    
   <footer>
                 <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 

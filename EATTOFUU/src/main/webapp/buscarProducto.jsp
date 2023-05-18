@@ -26,28 +26,11 @@
             </nav>
         </header>
         <hr>
-        <h2> Todas las categorias: </h2>
-   		  <form method="post" name="formCategoria" action="categoria.jsp">
-            <label for="categoria">Escoja la categoria</label>
-
-	        <% 
-	        Categoria object= new Categoria(); 
-	        out.print(object.mostrarCategoria());
-	        %>
-	        
-            <hr>
-            <input type="submit"/>
-            <input type="reset"/>
-   		  </form>
-   		  
-        <h2> Resultados: </h2>
-        <br>
-        <div id="result">
-	      <%
-	      Producto object2= new Producto();
-		  %>
-		</div>
-		
+        <h2> Todos los productos: </h2>
+   		  <%
+   		  Producto object= new Producto();
+   		  out.print(object.consultarProducto(Integer.parseInt(request.getParameter("cmbCategoria"))));
+   		  %>
 		<!--  --////////////////////////////////////////////////////////////////////////////////-->
 		
         <hr>

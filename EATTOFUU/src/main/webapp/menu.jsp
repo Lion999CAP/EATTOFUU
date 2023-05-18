@@ -21,40 +21,32 @@
                 <a class="enlaces" href="categoria.jsp"> Busqueda   </a>
             </nav>
         </header>
-
-<%
-String usuario = "";
-int perfil = 0;
-HttpSession sesion = request.getSession();
-if (sesion.getAttribute("usuario") == null) //Se verifica si existe la variable
-{
+  <main>
+  
+    <%
+	String usuario;
+	HttpSession sesion = request.getSession();
+	if (sesion.getAttribute("usuario") == null) {
+		// Redireccionar a login.jsp si no se ha iniciado sesión
+		response.sendRedirect("login.jsp?error=Debe registrarse en el sistema.");
+	} else {
+		usuario = (String) sesion.getAttribute("usuario");
+		int perfil = (Integer) sesion.getAttribute("perfil");
 	%>
-	<jsp:forward page="login.jsp">
-	<jsp:param name="error" value="Debe registrarse en el sistema."/>
-	</jsp:forward>
+
+	<h1>Sitio Privado de Productos</h1>
+	<h4>Bienvenido, <%= usuario %></h4>
+		
 	<%
-}else{
-	usuario=(String)sesion.getAttribute("usuario"); //Se devuelve los valores de atributos
-	perfil=(Integer)sesion.getAttribute("perfil");
-}
-%>
-
-<h1>Sitio Privado de Productos</h1>
-<h4>Bienvenido
-
-<%
-	out.println(usuario);
-%>
-</h4>
-
-<%
-	Pagina pag = new Pagina();
-	String menu = pag.mostrarMenu(perfil);
-	out.print(menu);
-%>
-
+		Pagina pag = new Pagina();
+		String menu = pag.mostrarMenu(perfil);
+		out.print(menu);
+	}
+	%>
+	
+  </main>
   <footer>
-                <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 
-        </footer>
+    <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 
+  </footer>
 </body>
 </html>

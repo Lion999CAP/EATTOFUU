@@ -64,10 +64,14 @@ body {
 
 #registrar {
 		text-decoration: none;
-        color: #000000;
+        color: rgb(0, 0, 0);
         font-weight: 600;
         padding-right: 10px;
 		}
+
+main > a{
+		color: rgb(0, 0, 0);
+}
 
 a{
 		text-decoration: none;
