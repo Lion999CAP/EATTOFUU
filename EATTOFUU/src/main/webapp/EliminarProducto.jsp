@@ -25,15 +25,13 @@
    <h1>Texto</h1>
    
      <%
-   int cod = Integer.parseInt(request.getParameter("id_pr"));  
-   Producto mp= new Producto();
-   boolean eliminacionExitosa = mp.EliminarProducto(cod);
-   if (eliminacionExitosa) {
-	   response.sendRedirect("productos.jsp");
-   } else {
-       out.println("No se pudo eliminar el producto");
-   }
-   %>
+     int cod = Integer.parseInt(request.getParameter("cod"));
+     Producto mp = new Producto();
+     boolean f = mp.EliminarProducto(cod);
+	 if(f==true){
+		response.sendRedirect("categoria.jsp");
+	 }
+  	 %>
    
    </main>
    

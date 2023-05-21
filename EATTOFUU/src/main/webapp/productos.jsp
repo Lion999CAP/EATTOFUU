@@ -26,7 +26,7 @@
         </header>
         <hr>
         <h1>
-            Te frecemos la mejor calidad
+            Te ofrecemos la mejor calidad
         </h1>
         <%
 		Producto object= new Producto(); 

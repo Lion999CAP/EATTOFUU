@@ -33,13 +33,18 @@
     <form action="productos.jsp" method="post">
     <table>
        		<tr>
-            <td><label for="codigo">Código:</label></td>
-            <td> <input type="text" id="codigo" name="editarcodigo" value="<%= mp.getId() %>" /> </td>
-            </tr>
+			  <td><label for="codigo">Código:</label></td>
+			  <td><input type="" id="codigo" name="editarcodigo" value="<%= mp.getId() %>" readonly /></td>
+			</tr>
             
             <tr>
-            <td><label for="categoria">Categoría:</label></td>
-            <td> <input type="text" id="categoria" name="editarcategoria" value="<%= mp.getCat() %>" /> </td>
+                <td><label for="categoria">Categoría:</label></td>
+                <td>
+                    <% 
+			        Categoria object= new Categoria(); 
+			        out.print(object.mostrarCategoria());
+			        %>
+                </td>
             </tr>
             
             <tr>
@@ -49,12 +54,12 @@
             
             <tr>
             <td><label for="cantidad">Precio:</label></td>
-            <td> <input type="text" id="precio" name="editarprecio" value="<%=mp.getPrecio() %>" /> </td>
+            <td> <input type="text" id="precio" name="editarprecio" value="<%= mp.getPrecio() %>" /> </td>
             </tr>
             
             <tr>
             <td><label for="precio">Cantidad:</label></td>
-            <td> <input type="text" id="cantidad" name="editarcantidad" value="<%=mp.getCantidad() %>" /> </td>
+            <td> <input type="text" id="cantidad" name="editarcantidad" value="<%= mp.getCantidad() %>" /> </td>
             </tr>
             
             <tr>

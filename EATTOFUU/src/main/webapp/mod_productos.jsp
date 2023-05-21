@@ -24,17 +24,18 @@
    <main>
    
    <% 
-    Producto mp=new Producto();
-    int cod2 = Integer.parseInt(request.getParameter("editarcodigo"));
-    String des = request.getParameter("editardescripcion");
-    float pre = Float.parseFloat(request.getParameter("editarprecio"));
-    int cant = Integer.parseInt(request.getParameter("editarcantidad"));
-    boolean act = mp.ModificarProducto(mp);
-    if(act == true){
-    	response.sendRedirect("categoria.jsp");
-    }else{
-    	out.print("Algo salio mal");
-    }
+   int cod = Integer.parseInt(request.getParameter("editarcod"));
+   String des = request.getParameter("editardescripcion");
+   float pre = Float.parseFloat(request.getParameter("editarprecio"));
+   int cant = Integer.parseInt(request.getParameter("editarcantidad"));
+   Producto mp = new Producto(cod,des,pre,cant);
+   boolean act = mp.ModificarProducto(mp);
+   if(act == true){
+   	response.sendRedirect("categoria.jsp");
+   }else{
+   	out.print("Algo salio mal");
+   }
+   
    %>
    </main>
    

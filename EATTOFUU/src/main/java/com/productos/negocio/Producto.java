@@ -1,10 +1,16 @@
 package com.productos.negocio;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.sql.*;
 import com.productos.datos.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Producto {
 	
@@ -14,7 +20,7 @@ public class Producto {
 	private int cantidad;
 	private double precio;
 	private byte foto;
-
+	
 	public String consultarTodo()
 	{
 	String sql="SELECT * FROM tb_producto ORDER BY id_pr";
@@ -27,8 +33,8 @@ public class Producto {
 	{
 	tabla+="<tr><td>"+rs.getInt(1)+"</td>"
 	+ "<td>"+rs.getString(3)+"</td>"
-	+ "<td>"+rs.getInt(5)+"</td>"
-	+ "<td>"+rs.getDouble(4)+'$'+"</td>"
+	+ "<td>"+rs.getInt(4)+"</td>"
+	+ "<td>"+rs.getDouble(5)+'$'+"</td>"
 	+ "</td></tr>";
 	}
 	} catch (SQLException e) {
@@ -65,51 +71,39 @@ public class Producto {
 	return resultado;
 	}
 	
-	public String ingresarProducto(int id, int cat, String nombre, int cantidad, double precio, String directorio)
-	{
-	String result="";
-	Conexion con=new Conexion();
-	PreparedStatement pr=null;
-	String sql="INSERT INTO tb_producto (id_pr,id_cat,"
-	+ "descripcion_pr,cantidad_pr,precio_pr,foto_pr) "
-	+ "VALUES(?,?,?,?,?,?)";
-	try{
-	pr=con.getConexion().prepareStatement(sql);
-	pr.setInt(1,id);
-	pr.setInt(2,cat);
-	pr.setString(3, nombre);
-	pr.setInt(5, cantidad);
-	pr.setDouble(4, precio);
-	File fichero=new File(directorio);
-	FileInputStream streamEntrada=new FileInputStream(fichero);
-	pr.setBinaryStream(6, streamEntrada,(int)fichero.length());
-	if(pr.executeUpdate()==1)
-	{
-	result="Inserción correcta";
-	}
-	else
-	{
-	result="Error en inserción";
-	}
-	}
-	catch(Exception ex)
-	{
-		result=ex.getMessage();
-		}
-		finally
-		{
-		try
-		{
-		pr.close();
-		con.getConexion().close();
-		}
-		catch(Exception ex)
-		{
-		System.out.print(ex.getMessage());
-		}
-		}
+	public String ingresarProducto(int id, int cat,String nombre, int cantidad, double precio, String directorio) {
+		String result="";
+		Conexion con=new Conexion();
+		PreparedStatement pr=null;
+		String sql="INSERT INTO public.tb_producto " + "(id_pr, id_cat, nombre_pr, cantidad_pr, precio_pr) " + "VALUES (?, ?, ?, ?, ?);";
+		try {
+			pr=con.getConexion().prepareStatement(sql);
+			pr.setInt(1,id);
+			pr.setInt(2,cat);
+			pr.setString(3, nombre);
+			pr.setInt(4, cantidad);
+			pr.setDouble(5, precio);
+			//File fichero=new File(directorio);
+			//FileInputStream streamEntrada=new FileInputStream(fichero);
+			//pr.setBinaryStream(6, streamEntrada,(int)fichero.length());
+			if(pr.executeUpdate()==1) {
+				result="Inserción correcta";
+				} else {
+					result="Error en inserción";
+					}
+			} catch(Exception ex) {
+				result=ex.getMessage();
+				} finally 
+		{ 
+					try {
+						pr.close();
+						con.getConexion().close();
+						} catch(Exception ex) {
+							System.out.print(ex.getMessage());
+							}
+					}
 		return result;
-	}
+		}
 	
 	public String consultarProducto(int cod)
 	{
@@ -155,40 +149,45 @@ public class Producto {
 	}
 	
 	public boolean ModificarProducto(Producto mp) {
-		boolean agregado= false;
-		Conexion obj=new Conexion();
-		String sql = "UPDATE tb_producto SET descripcion_pr='"+mp.getNombre()+"',precio_pr="+mp.getPrecio()+", cantidad_pr="+mp.getCantidad()+" WHERE id_pr= " + mp.getId();
+		boolean agregado = false;
+		Conexion con=new Conexion();
+		String sql = "UPDATE tb_producto SET nombre_pr='" + mp.getNombre() + "', precio_pr=" + mp.getPrecio()+","
+				+ " cantidad_pr=" + mp.getCantidad() + " WHERE id_pr=" + mp.getId() + ";";
 		try {
-			obj.Ejecutar(sql);
-			agregado=true;
-		}catch (Exception e) {
-			agregado=false;
-			e.printStackTrace();
-			System.out.print(e.getMessage());
+			con.Ejecutar(sql);
+			agregado = true;
+		} catch (Exception e) {
+			agregado = false;
 		}
 		return agregado;
 	}
 		
 	public boolean EliminarProducto(int cod) {
-	    boolean f = false;
-	    Conexion obj = new Conexion();
-	    String sql = "DELETE FROM tb_producto WHERE id_pr = ?";
-	    try {
-	        PreparedStatement stmt = obj.getConexion().prepareStatement(sql);
-	        stmt.setInt(1, cod);
-	        int rowsAffected = stmt.executeUpdate();
-	        if (rowsAffected > 0) {
-	            f = true;
-	        }
-	        stmt.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        f = false;
-	    	System.out.print(e.getMessage());
-	    }
-	    return f;
+		boolean f = false;
+		Conexion con = new Conexion();
+		String sql = "delete from tb_producto where id_pr= '"+cod+"'";
+		try {
+			con.Ejecutar(sql);
+			f = true;
+		}catch (Exception e) {
+			f = false;
+		}
+		return f;
 	}
 		
+	public void mostrarVentanaConfirmacion(HttpServletResponse response) throws IOException {
+	    response.setContentType("text/html");
+
+	    PrintWriter out = response.getWriter();
+	    out.println("<script>");
+	    out.println("var confirmacion = confirm('¿Está seguro de que desea realizar esta acción?');");
+	    out.println("if (confirmacion) {");
+	    out.println("  // El usuario hizo clic en 'Aceptar'");
+	    out.println("} else {");
+	    out.println("  // El usuario hizo clic en 'Cancelar'");
+	    out.println("}");
+	    out.println("</script>");
+	}
 	
 	public int getId() {
 			return id;
@@ -237,7 +236,7 @@ public class Producto {
 	public void setCat(int cat) {
 		this.cat = cat;
 	}
-
+	
 	public Producto() {
 		this.cantidad=0;
 		this.cat=0;

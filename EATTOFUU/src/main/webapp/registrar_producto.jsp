@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.productos.negocio.*"%>
+<%@ page import="java.io.File" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,9 +31,9 @@
   	<form action="res_registro.jsp" method="post" enctype="multipart/form-data">
         <table>
             <tr>
-                <td><label for="codigo">Código:</label></td>
-                <td><input type="text" id="codigo" name="codigo" required></td>
-            </tr>
+				<td><label for="nombre">Código:</label></td>
+				<td><input type="text" name="id" required="required"></td>
+			</tr>
             <tr>
                 <td><label for="categoria">Categoría:</label></td>
                 <td>
@@ -56,7 +57,7 @@
             </tr>
             <tr>
                 <td><label for="imagen">Imagen:</label></td>
-                <td><input type="file" id="imagen" name="imagen" accept="image/.jpg" required></td>
+                <td><input type="file" name="fileFoto" accept=".jpg, .jpeg, .png" /></td>
             </tr>
             <tr>
                 <td></td>

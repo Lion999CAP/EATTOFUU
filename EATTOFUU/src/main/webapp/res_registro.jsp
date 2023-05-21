@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.productos.negocio.*"%>
+    pageEncoding="UTF-8"import="com.productos.negocio.*"%>
     
- <%
-  int codigo = Integer.parseInt(request.getParameter("codigo"));
-  int categoria = Integer.parseInt(request.getParameter("cmbCategoria"));
-  String nombre = request.getParameter("nombre");
-  int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-  float precio = Float.parseFloat(request.getParameter("precio"));
-  String imagen = request.getParameter("imagen");
-  
-  Producto object= new Producto();
-  out.print(object.ingresarProducto(codigo, categoria, nombre, cantidad, precio, imagen));
-  %>
-  
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +10,20 @@
 </head>
 <body>
   <h1> Área de mensajes </h1>
+  
+		<%
+		Producto prod=new Producto();
+		String str_id = request.getParameter("id");
+		int id = Integer.parseInt(str_id);
+		String str_categoria=request.getParameter("cmbCategoria");
+		int cat=Integer.parseInt(str_categoria);
+		String nombre=request.getParameter("nombre");
+		String str_cant=request.getParameter("cantidad");
+		int cantidad=Integer.parseInt(str_cant);
+		String str_precio=request.getParameter("precio");
+		double precio=Double.parseDouble(str_precio);
+		out.print(prod.ingresarProducto(id, cat, nombre, cantidad, precio, ""));
+		%>
   
 </body>
 </html>
