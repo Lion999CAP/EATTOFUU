@@ -14,6 +14,10 @@ footer > p{
 	color: #fff;
 }
 
+ .highlight {
+    background-color: yellow;
+ }
+
 header{
 		font-family: 'Noto Sans JP', sans-serif;
         display: grid;
@@ -73,12 +77,13 @@ main > a{
 		color: rgb(0, 0, 0);
 }
 
-a{
+header > a, footer > a{
 		text-decoration: none;
-        color:rgb(128, 64, 0);
+        color:rgb(255, 255, 255);
         font-weight: 600;
         padding-right: 10px;
         }
+        
 
 nav h2{
         color: #fff;

@@ -3,10 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="css/estilos.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
-<title>EATTOFUU</title>
+<title>Utopía</title>
 </head>
 <body>
+
   <header id="header">
             <nav class="logo">
                <a class="enlaces" href="index.jsp"> <img src="img/tofumain.jpg" class="imagen1" alt="Logo del producto"> </a>
@@ -20,27 +22,25 @@
                 <a class="enlaces" href="login.jsp"> Login   </a>
             </nav>
    </header>
-   
-   <main>
-   
-   <% 
-   Producto obj = new Producto();
-   String codS = request.getParameter("editarcodigo");
-   String des = request.getParameter("editardescripcion");
-   String preS = request.getParameter("editarprecio");
-   String cantS = request.getParameter("editarcantidad");
-   boolean act = obj.ModificarProducto(codS, des, preS, cantS);
-   if(act == true){
-   	response.sendRedirect("categoria.jsp");
-   }else{
-   	out.print("Algo salio mal");
-   }
-   
-   %>
-   </main>
-   
+
+  <main>
+  <h1>Elija la categoria a modificar:</h1>
+  <h2> Todas las categorias: </h2>
+  <form action="oferta.jsp" method="post" name="formCategoria">
+ 
+ <label for="cat"></label>
+  <%
+  Categoria obj= new Categoria();
+  out.print(obj.mostrarCategoria());
+  %>
+    
+    <button class="boton-cat" type="submit">Enviar</button>
+  </form>
+  </main>
+
   <footer>
-                <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 
-        </footer>
+    <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 
+  </footer>
+
 </body>
 </html>

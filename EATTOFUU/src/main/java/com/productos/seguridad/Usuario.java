@@ -64,8 +64,7 @@ public class Usuario {
 	public boolean verificarUsuario(String nlogin, String nclave)
 	{
 	boolean respuesta=false;
-	String sentencia= "Select * from tb_usuario where login_us='"+nlogin+
-	"' and clave_us='"+nclave+"';";
+	String sentencia= "Select * from tb_usuario where login_us='"+nlogin+"' and clave_us='"+nclave+"';";
 	//System.out.print(sentencia);
 	try
 	{

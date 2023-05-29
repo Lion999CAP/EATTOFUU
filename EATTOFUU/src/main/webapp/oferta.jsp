@@ -2,12 +2,33 @@
     pageEncoding="UTF-8" import="com.productos.negocio.*"%>
 <!DOCTYPE html>
 <html>
+<link href="css/estilos.css" rel="stylesheet" type="text/css">
+
+<!-- <script>
+function toggleLinks(event) {
+    event.preventDefault();
+    var link1 = document.getElementById("link1");
+    var link2 = document.getElementById("link2");
+    if (link1.style.pointerEvents === "none") {
+        link1.style.pointerEvents = "auto";
+        link1.style.color = "black";
+        link2.style.pointerEvents = "none";
+        link2.style.color = "grey";
+    } else {
+        link1.style.pointerEvents = "none";
+        link1.style.color = "grey";
+        link2.style.pointerEvents = "auto";
+        link2.style.color = "black";
+    }
+}
+</script> -->
+
 <head>
 <meta charset="UTF-8">
-<link href="css/estilos.css" rel="stylesheet" type="text/css">
 <title>EATTOFUU</title>
 </head>
 <body>
+
   <header id="header">
             <nav class="logo">
                <a class="enlaces" href="index.jsp"> <img src="img/tofumain.jpg" class="imagen1" alt="Logo del producto"> </a>
@@ -20,25 +41,19 @@
                 <a class="enlaces" href="productos.jsp"> Productos   </a>
                 <a class="enlaces" href="login.jsp"> Login   </a>
             </nav>
-  </header>
+   </header>
 
   <main>
-  <h1>Elija la categoria a modificar:</h1>
-  <h2> Todas las categorias: </h2>
-  <form action="buscarProducto.jsp" method="post" name="formCategoria">
- 
- <label for="cat"></label>
-  <%
-  Categoria obj= new Categoria();
-  out.print(obj.mostrarCategoria());
-  %>
-    
-    <button class="boton-cat" type="submit">Enviar</button>
-  </form>
+     <h2> Todos los productos: </h2>
+   		  <%
+   		  Producto object= new Producto();
+   		  out.print(object.consultarProductoOferta(Integer.parseInt(request.getParameter("cmbCategoria"))));
+   		  %>
   </main>
 
   <footer>
     <p>&copy; 2023 Leandro Lara</p> <a href="creador.jsp"> Contáctame</a> <a href="contactos.jsp"> Locales </a> 
   </footer>
+
 </body>
 </html>

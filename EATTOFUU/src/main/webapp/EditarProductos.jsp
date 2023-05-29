@@ -30,11 +30,11 @@
    </header>
   <main>
     <h1> Actualizar productos:</h1>
-    <form action="productos.jsp" method="post">
+    <form action="mod_productos.jsp" method="post">
     <table>
        		<tr>
 			  <td><label for="codigo">Código:</label></td>
-			  <td><input type="" id="codigo" name="editarcodigo" value="<%= mp.getId() %>" readonly /></td>
+			  <td><input type="number" id="codigo" name="editarcodigo" value="<%= mp.getId() %>" readonly /></td>
 			</tr>
             
             <tr>
@@ -54,12 +54,12 @@
             
             <tr>
             <td><label for="cantidad">Precio:</label></td>
-            <td> <input type="text" id="precio" name="editarprecio" value="<%= mp.getPrecio() %>" /> </td>
+            <td> <input type="text" id="precio" name="editarprecio" value="<%= mp.getPrecio() %>" placeholder="1.0" step="0.01"/> </td>
             </tr>
             
             <tr>
             <td><label for="precio">Cantidad:</label></td>
-            <td> <input type="text" id="cantidad" name="editarcantidad" value="<%= mp.getCantidad() %>" /> </td>
+            <td> <input type="number" id="cantidad" name="editarcantidad" value="<%= mp.getCantidad() %>" /> </td>
             </tr>
             
             <tr>

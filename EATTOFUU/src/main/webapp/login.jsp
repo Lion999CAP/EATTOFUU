@@ -25,6 +25,11 @@
             </nav>
         </header>
         <hr>
+	        <%-- Obtener el valor del parámetro "error" --%>
+		    <% String errorMessage = request.getParameter("error"); %>
+		    <% if (errorMessage != null) { %>
+		        <p style="color: red;"><%= errorMessage %></p>
+		    <% } %>
         <div id="login">
 	        <h1>Inicio de Sesion</h1>
 			    <form method="post" id="form_login" action="verificarLogin.jsp">

@@ -21,11 +21,18 @@ public class Producto {
 	private double precio;
 	private byte foto;
 	
+	public Producto(int cod, String des, float preci, int cant) {
+		this.setId(cod);
+		this.setNombre(des);
+		this.setPrecio(preci);
+		this.setCantidad(cant);
+	}
+	
 	public String consultarTodo()
 	{
 	String sql="SELECT * FROM tb_producto ORDER BY id_pr";
 	Conexion con=new Conexion();
-	String tabla="<table border=2><th>ID</th><th>Producto</th><th>Cantidad</th><th>Precio</th>";
+	String tabla="<table border=2><th>ID</th><th>Producto</th><th>Cantidad</th><th>Precio Normal</th>";
 	ResultSet rs=null;
 	rs=con.Consulta(sql);
 	try {
@@ -35,6 +42,8 @@ public class Producto {
 	+ "<td>"+rs.getString(3)+"</td>"
 	+ "<td>"+rs.getInt(4)+"</td>"
 	+ "<td>"+rs.getDouble(5)+'$'+"</td>"
+	+ "<td>"+rs.getString(7)+"</td>"
+	+ "<td>"+rs.getDouble(8)+'$'+"</td>"
 	+ "</td></tr>";
 	}
 	} catch (SQLException e) {
@@ -67,7 +76,6 @@ public class Producto {
 	{
 	System.out.print(e.getMessage());
 	}
-	System.out.print(resultado);
 	return resultado;
 	}
 	
@@ -131,6 +139,33 @@ public class Producto {
 	return tabla;
 	}
 	
+	public String consultarProductoOferta(int cod)
+	{
+	String tabla= "<table border=2><th>ID</th><th>Producto</th><th>Cantidad</th><th>Precio</th>";
+	String sql="SELECT * FROM tb_producto WHERE id_cat= " + cod;
+	Conexion con=new Conexion();
+	ResultSet rs=null;
+	try {
+	rs=con.Consulta(sql);
+		while(rs.next()){
+			tabla+="<tr><td>"+rs.getInt(1)+"</td>"
+			+ "<td>"+rs.getString(3)+"</td>"
+			+ "<td>"+rs.getInt(4)+"</td>"
+			+ "<td>"+rs.getDouble(5)+'$'+"</td>"
+			+ "<td> <a href= producto_oferta.jsp?cod=" + rs.getInt(1) + "><pre style=\"text-align: center\">Oferta</pre></a></td>"
+			+ "<td> <a href= producto_cancelar.jsp?cod=" + rs.getInt(1) + "><pre style=\"text-align: center\">Cancelar</pre></a></td>"
+			+ "</td></tr>";
+		}
+	} catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+	System.out.print(e.getMessage());
+	}
+	tabla+="</table>";
+	return tabla;
+	}
+	
+	
 	public void ConsulEditarProductos (int cod) {
 		Conexion obj=new Conexion();
 		ResultSet rs = null;
@@ -148,11 +183,12 @@ public class Producto {
 	}
 	}
 	
-	public boolean ModificarProducto(Producto mp) {
+	public boolean ModificarProducto(String cod, String des, String preci, String cant) {
 		boolean agregado = false;
 		Conexion con=new Conexion();
-		String sql = "UPDATE tb_producto SET nombre_pr='" + mp.getNombre() + "', precio_pr=" + mp.getPrecio()+","
-				+ " cantidad_pr=" + mp.getCantidad() + " WHERE id_pr=" + mp.getId() + ";";
+		String sql = "UPDATE tb_producto SET descripcion_pr='" + des + "', precio_pr='" +preci+"',"
+				+ " cantidad_pr='" + cant + "' WHERE id_pr='" + cod + "';";
+		//System.out.print(sql);
 		try {
 			con.Ejecutar(sql);
 			agregado = true;
@@ -174,21 +210,33 @@ public class Producto {
 		}
 		return f;
 	}
-		
-	public void mostrarVentanaConfirmacion(HttpServletResponse response) throws IOException {
-	    response.setContentType("text/html");
-
-	    PrintWriter out = response.getWriter();
-	    out.println("<script>");
-	    out.println("var confirmacion = confirm('¿Está seguro de que desea realizar esta acción?');");
-	    out.println("if (confirmacion) {");
-	    out.println("  // El usuario hizo clic en 'Aceptar'");
-	    out.println("} else {");
-	    out.println("  // El usuario hizo clic en 'Cancelar'");
-	    out.println("}");
-	    out.println("</script>");
+	
+	public boolean OfertaProducto(int cod) {
+		boolean f = false;
+		Conexion con = new Conexion();
+		String sql = "UPDATE public.tb_producto	SET producto_oferta=precio_pr - (precio_pr*0.6), estado='Oferta' WHERE id_pr='"+cod+"';";
+		try {
+			con.Ejecutar(sql);
+			f = true;
+		}catch (Exception e) {
+			f = false;
+		}
+		return f;
 	}
 	
+	public boolean NoOfertaProducto(int cod) {
+		boolean f = false;
+		Conexion con = new Conexion();
+		String sql = "UPDATE public.tb_producto	SET producto_oferta=precio_pr, estado='Normal' WHERE id_pr='"+cod+"';";
+		try {
+			con.Ejecutar(sql);
+			f = true;
+		}catch (Exception e) {
+			f = false;
+		}
+		return f;
+	}
+		
 	public int getId() {
 			return id;
 		}
